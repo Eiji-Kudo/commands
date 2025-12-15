@@ -1,71 +1,73 @@
 # 終業報告生成 (Daily Report Generator)
 
-あなたは以下の情報を収集し、ユーザーの終業報告を作成してください。
+ユーザーの終業報告を収集・作成し、Slackにコピペできる形式で出力する。
 
 ## 情報収集
 
-1. **今日のGit Activity**を確認:
+1. 今日のGit Activity（自分のコミットのみ）:
    ```bash
-   git log --oneline --since="midnight" --author="$(git config user.email)"
+   git log --oneline --since="midnight" --author="Eiji-Kudo"
    ```
 
-2. **今日マージ/クローズされたPR**を確認:
+2. 今日マージされたPR:
    ```bash
-   gh pr list --state merged --author @me --search "merged:>=$(date +%Y-%m-%d)"
-   gh pr list --state closed --author @me
+   gh pr list --state merged --author Eiji-Kudo --search "merged:>=$(date +%Y-%m-%d)"
    ```
 
-3. **今日クローズされたIssue**を確認:
+3. 今日クローズされたIssue:
    ```bash
-   gh issue list --assignee @me --state closed --search "closed:>=$(date +%Y-%m-%d)"
+   gh issue list --assignee Eiji-Kudo --state closed --search "closed:>=$(date +%Y-%m-%d)"
    ```
 
-4. **進行中のPR/Issue**を確認:
+4. 進行中のPR/Issue:
    ```bash
-   gh pr list --author @me --state open
-   gh issue list --assignee @me --state open
-   ```
-
-5. **現在の作業ブランチの状態**を確認:
-   ```bash
-   git status
-   git diff --stat
+   gh pr list --author Eiji-Kudo --state open
+   gh issue list --assignee Eiji-Kudo --state open
    ```
 
 ## 出力フォーマット
 
-収集した情報を基に、以下の形式で報告を作成してください：
+Slackにそのままコピペできる形式で出力する。マークダウン記法（**など）は使用しない。
 
 ---
 
-### 今日の成果とハイライト（Today's Wins & Highlights）
+終業報告 - YYYY/MM/DD
 
-- 朝に掲げたMIT（最優先事項）や目標に対して、何が達成できたかを報告
-- マージされたPR、クローズされたissue、完了したタスクを具体的に記載
-- 例: 「認証機能のPR #123 をマージ完了」「ユーザー登録バグ #45 を修正」
+【今日の成果とハイライト】
 
-### 明日への引き継ぎと課題（Hand-offs & Blockers for Tomorrow）
+• 完了した作業内容（ビジネス視点で説明）
+  - 詳細があれば箇条書きで補足
+• クローズした課題
+  - #番号 課題タイトル（平易な言葉で）
 
-- 今日の業務で残ったタスク
-- 明日以降に持ち越す必要のある懸念事項やブロッカー
-- 「明日の朝一で〇〇の続きをする」のように、次のアクションを明確に
-- 進行中のPRがあればその状態（レビュー待ち、修正中など）
+【明日への引き継ぎと課題】
 
-### 今日の学びと振り返り（Today's Learnings & Reflection）（任意）
+レビュー待ちのPR:
+• #番号 内容（機能の目的を簡潔に）
 
-- その日を通じて得られた技術的な学びや気づき
-- 例: 「React 19のuseActionStateの使い方を理解した」
+今後対応予定の課題:
+• #番号 課題タイトル（平易な言葉で）
 
-### チームへの共有事項（任意）
+【今日の学びと振り返り】（任意）
 
-- 他のメンバーに共有すべき情報があれば
-- 例: 「staging環境のDBマイグレーション完了」「新しいAPIエンドポイント追加」
+• 学びや気づきがあれば記載
+
+【チームへの共有事項】（任意）
+
+• 共有すべき情報があれば記載
 
 ---
 
 ## 注意事項
 
-- 簡潔に、箇条書きで記載する
+- 技術用語を避け、ビジネスの人にもわかりやすい表現を使う
+- 機能の目的や利用者への影響を中心に記載する
+- 箇条書きは「•」を使用（Slack対応）
+- 見出しは【】で囲む
 - 具体的なPR番号やissue番号を含める
 - 成果がない場合は正直に「進捗なし」と記載して良い
 - 任意の項目は、特に記載がなければ省略可能
+
+## 最後に
+
+作成した報告を `documents/daily-report-YYYY-MM-DD.md` に保存する。
