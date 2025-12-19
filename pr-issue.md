@@ -1,10 +1,9 @@
-指定されたPR番号のPRに対応するissueのドラフトをMarkdownで作成してください。
+現在のブランチのPRに対応するissueのドラフトをMarkdownで作成してください。
 
 ## 手順
 
 1. **PR情報の取得**
-   - PR番号が指定されている場合は `gh pr view {num} --json title,body,number,headRefName` でPRの情報を取得
-   - PR番号が指定されていない場合は `gh pr view --json title,body,number,headRefName` で現在のPRの情報を取得
+   - `gh pr view --json title,body,number,headRefName` で現在のPRの情報を取得
    - PRが存在しない場合はエラーメッセージを表示して終了
 
 2. **issue内容の作成**
