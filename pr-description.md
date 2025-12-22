@@ -1,11 +1,10 @@
-PR番号を指定してPRの内容を取得し、Markdownファイルとして保存してください。
+現在のブランチに対応するPRの内容を取得し、Markdownファイルとして保存してください。
 
 ## 手順
 
 1. **PR情報の取得**
-   - `gh pr list` でPR一覧を確認
-   - 指定されたPR番号のPR情報を `gh pr view {num} --json title,body,number,headRefName,baseRefName,author,createdAt,url` で取得
-   - または `gh pr view {num}` でPRの詳細を確認
+   - `gh pr view --json title,body,number,headRefName,baseRefName` で現在のブランチに対応するPR情報を取得
+   - PRが見つからない場合はエラーメッセージを表示して終了
 
 2. **PRテンプレートの確認**
    - `.github/pull_request_template.md` が存在する場合は内容を確認
@@ -18,7 +17,7 @@ PR番号を指定してPRの内容を取得し、Markdownファイルとして�
 
 4. **ファイル保存**
    - 作成した内容をMarkdownファイルとして保存
-   - ファイル名は `pr-{num}.md` など適切な名前を付ける
+   - ファイル名は `pr-{PRの番号}.md` とする（例: `pr-1730.md`）
 
 ## 注意事項
 
