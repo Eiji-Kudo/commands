@@ -48,7 +48,25 @@ gh api repos/{owner}/{repo}/pulls/{number}/comments \
 - CAN_IGNOREの返信案もそのまま投稿
 - 既に返信済みのスレッドはスキップ
 
-### 5. 結果報告
+### 5. スレッドのResolve
+
+返信後、該当スレッドをresolvedにする。
+
+```bash
+gh api graphql -f query='
+  mutation {
+    resolveReviewThread(input: {threadId: "{thread_node_id}"}) {
+      thread {
+        isResolved
+      }
+    }
+  }
+'
+```
+
+`thread_node_id` はステップ3で取得したコメントの `node_id` から対応するスレッドIDを特定する。
+
+### 6. 結果報告
 
 投稿した返信の一覧を表示する。
 
